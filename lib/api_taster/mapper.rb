@@ -39,7 +39,7 @@ module ApiTaster
             :params => params
           }
         else
-          Route.supplied_params[route[:id]] ||= []
+          Route.supplied_params[route[:id]] = []
           Route.supplied_params[route[:id]] << ApiTaster.global_params.merge(params)
 
           unless last_desc.nil?

@@ -12,7 +12,7 @@ module ApiTaster
   self.global_params = {}
 
   def self.routes(&block)
-    Route.mappings = Proc.new { block }
+    Route.mappings << block
   end
 
   class Exception < ::Exception; end

@@ -39,7 +39,7 @@ module ApiTaster
     end
 
     it "lazy loads the mapping" do
-      Route.mappings.should be_kind_of(Proc)
+      Route.mappings.should be_kind_of(Array)
     end
 
     it "#routes" do

@@ -8,6 +8,7 @@ module ApiTaster
     cattr_accessor :comments
     cattr_accessor :metadata
 
+    self.mappings = []
     class << self
 
       def map_routes
@@ -20,9 +21,12 @@ module ApiTaster
         normalise_routes!
 
         begin
-          Mapper.instance_eval(&self.mappings.call)
+          Dir["#{Rails.root}/app/api_tasters/**/*.rb"].each { |file| load(file) }
+          for route in self.mappings do
+            Mapper.instance_eval(&route)
+          end
         rescue
-          Route.mappings = {}
+          Route.mappings = []
         end
       end
 

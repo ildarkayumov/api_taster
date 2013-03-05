@@ -18,7 +18,7 @@ module ApiTaster
       end
 
       it "records obsolete definitions" do
-        Route.obsolete_definitions.first[:path].should == '/dummy_route'
+        Route.obsolete_definitions.last[:path].should == '/dummy_route'
       end
     end
 
@@ -56,6 +56,9 @@ module ApiTaster
         post '/dummy_users', { :hello => 'world' }, { :meta => 'data' }
         put '/dummy_users/:id', :id => 2
         delete '/dummy_users/:id', :id => 3
+      end
+
+      ApiTaster.routes do
         patch '/dummy_users/:id', :id => 4
       end
 
@@ -71,7 +74,7 @@ module ApiTaster
     it "posts a new user" do
       route = Route.find_by_verb_and_path(:post, '/dummy_users')
 
-      Route.supplied_params[route[:id]].should == [{}, { :hello => 'world' }]
+      Route.supplied_params[route[:id]].should == [{ :hello => 'world' }]
     end
 
     it "edits a user" do

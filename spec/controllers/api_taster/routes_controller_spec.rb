@@ -4,7 +4,7 @@ module ApiTaster
   describe RoutesController do
     context "missing ApiTaster.routes" do
       it "#index" do
-        Route.stub(:mappings).and_return(nil)
+        Route.stub(:mappings).and_return([])
         get :index, :use_route => :api_taster
 
         response.should be_success
